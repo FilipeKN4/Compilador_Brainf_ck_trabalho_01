@@ -3,34 +3,6 @@
 #include <string.h>
 #define SIZE 100000
 
-void read_file(char *source) {
-  FILE *file;
-  int count = 0;
-  char ch;
-  file = fopen("brain_f_ck.txt", "rt");
-  if (file == NULL) {
-    puts("ERRO AO ABRIR ARQUIVO !");
-		getchar();
-  }
-  else {
-    while((ch = fgetc(file)) != EOF) {
-      if(ch == '+' ||
-         ch == '-' ||
-         ch == '>' ||
-         ch == '<' ||
-         ch == '.' ||
-         ch == ',' ||
-         ch == '[' ||
-         ch == ']') {
-        source[count] = ch;
-        count++;
-      }
-    }
-    source[count] = '\0';
-  }
-  fclose(file);
-}
-
 void interpreta_brain_f_ck(char *source) {
   char vector[SIZE];
   int count_source, count_brackets, position = 0, count = 0, open_brackets[SIZE];
@@ -86,7 +58,7 @@ void interpreta_brain_f_ck(char *source) {
 int main() {
   char source[SIZE];
 
-  read_file(source);
+  scanf("%s", source);
   printf("%s\n", source);
   puts("\nSaida:");
   interpreta_brain_f_ck(source);
