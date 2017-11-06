@@ -14,7 +14,14 @@ void read_file(char *source) {
   }
   else {
     while((ch = fgetc(file)) != EOF) {
-      if(ch != '\n') {
+      if(ch == '+' ||
+         ch == '-' ||
+         ch == '>' ||
+         ch == '<' ||
+         ch == '.' ||
+         ch == ',' ||
+         ch == '[' ||
+         ch == ']') {
         source[count] = ch;
         count++;
       }
