@@ -3,7 +3,35 @@
 #include <string.h>
 #define TAM 100000
 
-void interpreta_brain_f_ck(char * codigo) {
+void read_file(char *source) {
+  FILE *file;
+  int count = 0;
+  char ch;
+  file = fopen("brain_f_ck.txt", "rt");
+  if (file == NULL) {
+    puts("ERRO AO ABRIR ARQUIVO !");
+		getchar();
+  }
+  else {
+    while((ch = fgetc(file)) != EOF) {
+      if(ch == '+' ||
+         ch == '-' ||
+         ch == '>' ||
+         ch == '<' ||
+         ch == '[' ||
+         ch == ']' ||
+         ch == '.' ||
+         ch == ',') {
+        source[count] = ch;
+        count++;
+      }
+    }
+    source[count] = '\0';
+  }
+  fclose(file);
+}
+
+void interpreta_brain_f_ck(char *codigo) {
   char vetor[TAM];
   int count_source, count_brackets, posicao = 0, count = 0, open_brackets[TAM];
 
@@ -56,13 +84,12 @@ void interpreta_brain_f_ck(char * codigo) {
 }
 
 int main() {
-  char *codigo, *lixo;
+  char source[TAM];
 
-  puts("Entrada:");
-  scanf("%s", codigo);
-  lixo = codigo;
+  read_file(source);
+  printf("%s\n", source);
   puts("\nSaida:");
-  interpreta_brain_f_ck(codigo);
+  interpreta_brain_f_ck(source);
 
   return 0;
 }
