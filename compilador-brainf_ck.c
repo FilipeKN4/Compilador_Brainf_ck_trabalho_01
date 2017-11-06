@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define TAM 100000
+#define SIZE 100000
 
 void read_file(char *source) {
   FILE *file;
@@ -14,14 +14,7 @@ void read_file(char *source) {
   }
   else {
     while((ch = fgetc(file)) != EOF) {
-      if(ch == '+' ||
-         ch == '-' ||
-         ch == '>' ||
-         ch == '<' ||
-         ch == '[' ||
-         ch == ']' ||
-         ch == '.' ||
-         ch == ',') {
+      if(ch != '\n') {
         source[count] = ch;
         count++;
       }
@@ -31,38 +24,38 @@ void read_file(char *source) {
   fclose(file);
 }
 
-void interpreta_brain_f_ck(char *codigo) {
-  char vetor[TAM];
-  int count_source, count_brackets, posicao = 0, count = 0, open_brackets[TAM];
+void interpreta_brain_f_ck(char *source) {
+  char vector[SIZE];
+  int count_source, count_brackets, position = 0, count = 0, open_brackets[SIZE];
 
-  for(count_source=0; count_source < strlen(codigo); count_source++) {
-      switch (codigo[count_source]) {
+  for(count_source=0; count_source < strlen(source); count_source++) {
+      switch (source[count_source]) {
         case '+':
-          vetor[posicao]++;
+          vector[position]++;
           break;
         case '-':
-          vetor[posicao]--;
+          vector[position]--;
           break;
         case '>':
-          posicao++;
+          position++;
           break;
         case '<':
-          posicao--;
+          position--;
           break;
         case '.':
-          putchar(vetor[posicao]);
+          putchar(vector[position]);
           break;
         case ',':
-          vetor[posicao] = getchar();
+          vector[position] = getchar();
           break;
         case '[':
-          if(vetor[posicao] == 0) {
+          if(vector[position] == 0) {
             count = 1;
             while(count != 0) {
               count_source++;
-              if(codigo[count_source] == '[')
+              if(source[count_source] == '[')
                 count++;
-              else if(codigo[count_source] == ']')
+              else if(source[count_source] == ']')
                 count--;
             }
           }
@@ -84,7 +77,7 @@ void interpreta_brain_f_ck(char *codigo) {
 }
 
 int main() {
-  char source[TAM];
+  char source[SIZE];
 
   read_file(source);
   printf("%s\n", source);
