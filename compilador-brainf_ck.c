@@ -3,65 +3,62 @@
 #include <string.h>
 #define SIZE 100000
 
-void interpreta_brain_f_ck(char *source) {
-  char vector[SIZE];
-  int count_source, count_brackets, position = 0, count = 0, open_brackets[SIZE];
+void compile_brain_f_ck(char *source) {
+  int count_source;
+  FILE *output;
+
+  output = fopen("saida.c", "w");
+
+  if(output == NULL) {
+    printf("Arquivo não foi criado!");
+  }
+
+  fprintf(output, "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#define SIZE 100000\n");
+  fprintf(output, "int main() {\n char vector[SIZE] = {};\n int position = 0;\n\n");
 
   for(count_source=0; count_source < strlen(source); count_source++) {
       switch (source[count_source]) {
         case '+':
-          vector[position]++;
+          fprintf(output, " vector[position]++;\n");
           break;
         case '-':
-          vector[position]--;
+          fprintf(output, " vector[position]--;\n");
           break;
         case '>':
-          position++;
+          fprintf(output, " position++;\n");
           break;
         case '<':
-          position--;
+          fprintf(output, " position--;\n");
           break;
         case '.':
-          putchar(vector[position]);
+          fprintf(output, " putchar(vector[position]);\n");
           break;
         case ',':
-          vector[position] = getchar();
+          fprintf(output, " vector[position] = getchar();\n");
           break;
         case '[':
-          if(vector[position] == 0) {
-            count = 1;
-            while(count != 0) {
-              count_source++;
-              if(source[count_source] == '[')
-                count++;
-              else if(source[count_source] == ']')
-                count--;
-            }
-          }
-          else {
-            open_brackets[count_brackets] = count_source;
-            count_brackets++;
-          }
+          fprintf(output, "while(vector[position]!=0) {\n");
           break;
         case ']':
-          count_brackets--;
-          count_source = open_brackets[count_brackets] - 1;
-          open_brackets[count_brackets] = 0;
+          fprintf(output, "}\n");
           break;
 
         default:;
       }
   }
-  puts("");
+
+  fprintf(output, "\n return 0;\n}");
+
+  fclose(output);
 }
 
 int main() {
-  char source[SIZE];
+  char source[SIZE] = {};
 
   scanf("%s", source);
   printf("%s\n", source);
-  puts("\nSaida:");
   interpreta_brain_f_ck(source);
+  puts("\nCodigo em Linguagem C gerado com sucesso!");
 
   return 0;
 }
