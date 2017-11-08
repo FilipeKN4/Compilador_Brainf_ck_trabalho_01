@@ -1,7 +1,7 @@
 # Compilador Brainf_ck Trabalho 1
 
 - Filipe Coelho Hilário Barcelos 15/0059213
-- Daniel Rangel Marques
+- Daniel Marques Rangel 15/0008228
 
 Para utilizar o código é necessário seguir os passos a seguir no terminal:  
 
