@@ -57,7 +57,7 @@ int main() {
 
   scanf("%s", source);
   printf("%s\n", source);
-  interpreta_brain_f_ck(source);
+  compile_brain_f_ck(source);
   puts("\nCodigo em Linguagem C gerado com sucesso!");
 
   return 0;
